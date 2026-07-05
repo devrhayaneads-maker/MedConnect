@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import '../../controllers/app_scope.dart';
 import '../../controllers/conversations_controller.dart';
 import '../../core/theme/app_colors.dart';
-import '../../data/mock_data.dart';
 
 /// Tela Perfil (perfil.html): cabeçalho com avatar, nome e e-mail, e
 /// menu de opções (Histórico, Medicamentos, Documentos, Notificações,
@@ -130,6 +129,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
     controller.dispose();
     if (newName != null && newName.trim().isNotEmpty) {
       await scope.profile.updateName(newName);
+    }
+  }
+
+  Future<void> _editEmail(BuildContext context, AppScope scope) async {
+    final TextEditingController controller =
+        TextEditingController(text: scope.profile.email);
+    final String? newEmail = await showDialog<String>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Editar e-mail'),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          keyboardType: TextInputType.emailAddress,
+          decoration: const InputDecoration(hintText: 'Seu e-mail'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: const Text('Cancelar'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(dialogContext).pop(controller.text),
+            child: const Text('Salvar'),
+          ),
+        ],
+      ),
+    );
+    controller.dispose();
+    if (newEmail != null && newEmail.trim().isNotEmpty) {
+      await scope.profile.updateEmail(newEmail);
     }
   }
 
@@ -264,33 +294,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(height: 12),
             ListenableBuilder(
               listenable: scope.profile,
-              builder: (context, _) => GestureDetector(
-                onTap: () => _editName(context, scope),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      scope.profile.name,
+              builder: (context, _) => Column(
+                children: [
+                  GestureDetector(
+                    onTap: () => _editName(context, scope),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          scope.profile.name,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.textDark,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        const Icon(
+                          Icons.edit_outlined,
+                          size: 18,
+                          color: AppColors.textGray,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  GestureDetector(
+                    onTap: () => _editEmail(context, scope),
+                    child: Text(
+                      scope.profile.email,
                       style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.textDark,
+                        fontSize: 14,
+                        color: AppColors.textGray,
                       ),
                     ),
-                    const SizedBox(width: 6),
-                    const Icon(
-                      Icons.edit_outlined,
-                      size: 18,
-                      color: AppColors.textGray,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 2),
-            const Text(
-              MockData.userEmail,
-              style: TextStyle(fontSize: 14, color: AppColors.textGray),
             ),
           ],
         ),
