@@ -1,0 +1,50 @@
+name: medconnect
+description: >-
+  MedConnect — Agenda Médica Inteligente. Conecta pessoas a cuidados de
+  saúde com agilidade, clareza e confiança. Projeto acadêmico (ADS /
+  UNIVIÇOSA) convertido de HTML/CSS/JS para Flutter.
+publish_to: "none"
+version: 1.0.4+5
+
+environment:
+  sdk: ">=3.7.0 <4.0.0"
+  flutter: ">=3.32.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  image_picker: ^1.1.2
+  firebase_core: ^4.11.0
+  firebase_auth: ^6.5.4
+  cloud_firestore: ^6.6.0
+  firebase_messaging: ^16.4.1
+  flutter_local_notifications: ^22.0.1
+  emoji_picker_flutter: ^4.4.0
+  record: ^7.1.1
+  just_audio: ^0.10.6
+  permission_handler: ^12.0.3
+  qr_flutter: ^4.1.0
+  path_provider: ^2.1.6
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.14.3
+  fake_cloud_firestore: ^4.1.1
+  qr: ^3.0.2
+
+# Ícone do aplicativo (logo MedConnect) em todas as resoluções do Android.
+# Gerado com: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/branding/icone_app.png"
+  adaptive_icon_background: "assets/branding/icone_fundo.png"
+  adaptive_icon_foreground: "assets/branding/icone_frente.png"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/

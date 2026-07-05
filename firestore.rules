@@ -1,0 +1,33 @@
+rules_version = '2';
+
+// Só existe uma usuária (autenticação anônima, sem login), então cada
+// pessoa só acessa seus próprios dados em users/{uid}/... . Como a
+// "resposta da clínica" é simulada pelo próprio app (sem servidor,
+// para evitar o plano pago do Firebase), o mesmo client autenticado
+// grava mensagens tanto como "patient" quanto como "clinic" — por isso
+// as regras aqui são por dono dos dados (uid), não por remetente.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      match /conversations/{conversationId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+
+        match /messages/{messageId} {
+          allow read, create, update: if request.auth != null && request.auth.uid == userId;
+          allow delete: if false;
+        }
+      }
+    }
+
+    // Clínicas: coleção pública (curada manualmente em
+    // lib/data/clinics_seed.dart). Leitura/escrita liberada para
+    // qualquer usuária autenticada porque o próprio app faz o seed
+    // inicial pelo client (sem servidor/script separado) — não há
+    // dado sensível aqui, é só a lista pública de clínicas.
+    match /clinics/{clinicId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

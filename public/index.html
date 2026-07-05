@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MedConnect — Baixar o app</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: #f2f2f4;
+    color: #1a1a1a;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+  .card {
+    max-width: 420px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 32px 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    text-align: center;
+  }
+  h1 { font-size: 22px; margin-bottom: 4px; color: #009879; }
+  p.subtitle { color: #666; margin-top: 0; margin-bottom: 24px; }
+  .qr-wrap {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    padding: 16px;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  .qr-wrap img { width: 220px; height: 220px; display: block; }
+  a.download-btn {
+    display: block;
+    background: #009879;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 14px 20px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  ol { text-align: left; color: #444; font-size: 14px; line-height: 1.6; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>MedConnect</h1>
+    <p class="subtitle">Escaneie o QR Code ou toque no botão para baixar o app (Android).</p>
+    <div class="qr-wrap">
+      <img src="qr.svg" alt="QR Code para baixar o MedConnect" />
+    </div>
+    <a class="download-btn" href="medconnect.apk.bin" download="medconnect.apk">Baixar APK</a>
+    <ol>
+      <li>Baixe o arquivo <strong>medconnect.apk</strong>.</li>
+      <li>Se o Android avisar sobre "fontes desconhecidas", toque em
+        "Permitir" — o app não vem de uma loja, mas é seguro (projeto
+        acadêmico).</li>
+      <li>Abra o arquivo baixado para instalar.</li>
+    </ol>
+  </div>
+</body>
+</html>

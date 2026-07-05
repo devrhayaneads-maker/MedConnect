@@ -1,0 +1,40 @@
+{
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*"],
+    "headers": [
+      {
+        "source": "medconnect.apk.bin",
+        "headers": [
+          { "key": "Content-Type", "value": "application/vnd.android.package-archive" },
+          { "key": "Content-Disposition", "value": "attachment; filename=\"medconnect.apk\"" },
+          { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        ]
+      }
+    ]
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "medconnect-r71",
+          "appId": "1:1016300705042:android:876f49015fdf2856664fcb",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "medconnect-r71",
+          "configurations": {
+            "android": "1:1016300705042:android:876f49015fdf2856664fcb",
+            "web": "1:1016300705042:web:faec710dfa3b890f664fcb",
+            "windows": "1:1016300705042:web:967223444506f06f664fcb"
+          }
+        }
+      }
+    }
+  }
+}

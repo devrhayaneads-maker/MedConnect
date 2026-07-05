@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1016300705042",
+    "project_id": "medconnect-r71",
+    "storage_bucket": "medconnect-r71.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016300705042:android:876f49015fdf2856664fcb",
+        "android_client_info": {
+          "package_name": "com.example.medconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXZqTgcBEagRamV5F0s4qdUYR-D_LqvJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016300705042:android:a97fe49355a3e5cd664fcb",
+        "android_client_info": {
+          "package_name": "com.univicosa.medconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXZqTgcBEagRamV5F0s4qdUYR-D_LqvJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
