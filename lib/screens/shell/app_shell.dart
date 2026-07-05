@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../controllers/app_scope.dart';
+import '../../services/update_service.dart';
 import '../appointments/appointments_screen.dart';
 import '../clinics/clinics_screen.dart';
 import '../home/home_screen.dart';
@@ -10,8 +11,47 @@ import '../profile/profile_screen.dart';
 /// Estrutura principal do app: navegação inferior com 5 abas
 /// (Início, Consultas, Mensagens, Clínicas e Perfil), preservando o
 /// estado de cada tela com [IndexedStack].
-class AppShell extends StatelessWidget {
+class AppShell extends StatefulWidget {
   const AppShell({super.key});
+
+  @override
+  State<AppShell> createState() => _AppShellState();
+}
+
+class _AppShellState extends State<AppShell> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _checkForUpdate());
+  }
+
+  Future<void> _checkForUpdate() async {
+    final UpdateInfo? info = await UpdateService.checkForUpdate();
+    if (info == null || !mounted) return;
+    await showDialog<void>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Nova versão disponível'),
+        content: Text(
+          'A versão ${info.version} do MedConnect já está disponível.'
+          '${info.notes != null && info.notes!.isNotEmpty ? '\n\n${info.notes}' : ''}',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: const Text('Agora não'),
+          ),
+          FilledButton(
+            onPressed: () {
+              Navigator.of(dialogContext).pop();
+              UpdateService.openDownload(info.apkUrl);
+            },
+            child: const Text('Atualizar'),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

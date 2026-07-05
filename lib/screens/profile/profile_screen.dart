@@ -102,6 +102,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  Future<void> _editName(BuildContext context, AppScope scope) async {
+    final TextEditingController controller =
+        TextEditingController(text: scope.profile.name);
+    final String? newName = await showDialog<String>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Editar nome'),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          textCapitalization: TextCapitalization.words,
+          decoration: const InputDecoration(hintText: 'Seu nome'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: const Text('Cancelar'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(dialogContext).pop(controller.text),
+            child: const Text('Salvar'),
+          ),
+        ],
+      ),
+    );
+    controller.dispose();
+    if (newName != null && newName.trim().isNotEmpty) {
+      await scope.profile.updateName(newName);
+    }
+  }
+
   void _comingSoon(BuildContext context, String feature) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
@@ -231,12 +262,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
-              MockData.userName,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: AppColors.textDark,
+            ListenableBuilder(
+              listenable: scope.profile,
+              builder: (context, _) => GestureDetector(
+                onTap: () => _editName(context, scope),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      scope.profile.name,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.textDark,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    const Icon(
+                      Icons.edit_outlined,
+                      size: 18,
+                      color: AppColors.textGray,
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 2),

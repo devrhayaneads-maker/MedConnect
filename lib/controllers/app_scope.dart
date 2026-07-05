@@ -6,6 +6,7 @@ import '../repositories/conversations_repository.dart';
 import 'appointments_controller.dart';
 import 'clinics_controller.dart';
 import 'conversations_controller.dart';
+import 'profile_controller.dart';
 
 /// Escopo de dependências do aplicativo.
 ///
@@ -25,6 +26,7 @@ class AppScope extends InheritedWidget {
   final AppointmentsController appointments = AppointmentsController();
   final ConversationsController conversations;
   final ClinicsController clinics;
+  final ProfileController profile = ProfileController();
 
   /// Índice da aba ativa na navegação inferior. Permite que a home
   /// ("Ações rápidas") e o fluxo de agendamento troquem de aba.
