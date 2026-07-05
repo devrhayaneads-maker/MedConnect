@@ -48,7 +48,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAXZqTgcBEagRamV5F0s4qdUYR-D_LqvJ8',
-    appId: '1:1016300705042:android:876f49015fdf2856664fcb',
+    appId: '1:1016300705042:android:3b2ed114cf780446664fcb',
     messagingSenderId: '1016300705042',
     projectId: 'medconnect-r71',
     storageBucket: 'medconnect-r71.firebasestorage.app',
