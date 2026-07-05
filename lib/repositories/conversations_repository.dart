@@ -33,8 +33,9 @@ class ConversationsRepository {
   /// original (`MockData.conversations()`), para a experiência do app
   /// continuar igual, agora persistida de verdade.
   Future<void> seedDemoDataIfEmpty() async {
-    final QuerySnapshot<Map<String, Object?>> existing =
-        await _conversationsRef.limit(1).get();
+    final QuerySnapshot<Map<String, Object?>> existing = await _conversationsRef
+        .limit(1)
+        .get(const GetOptions(source: Source.server));
     if (existing.docs.isNotEmpty) return;
 
     final WriteBatch batch = _firestore.batch();
@@ -46,9 +47,13 @@ class ConversationsRepository {
         'lastMessageAt': Timestamp.fromDate(conversation.lastMessageAt),
         'unreadCount': conversation.unreadCount,
       });
-      for (final ChatMessage message in conversation.messages) {
+      for (int i = 0; i < conversation.messages.length; i++) {
+        final ChatMessage message = conversation.messages[i];
+        // ID fixo (não aleatório): se a semeadura rodar mais de uma vez
+        // por engano, o `set` sobrescreve o mesmo documento em vez de
+        // criar uma mensagem duplicada.
         final DocumentReference<Map<String, Object?>> messageDoc =
-            conversationDoc.collection('messages').doc();
+            conversationDoc.collection('messages').doc('seed-$i');
         batch.set(messageDoc, <String, Object?>{
           'senderType': message.sentByUser ? 'patient' : 'clinic',
           'type': message.type.name,

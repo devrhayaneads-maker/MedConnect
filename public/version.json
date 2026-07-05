@@ -1,6 +1,6 @@
 {
-  "version": "1.0.6",
-  "buildNumber": 7,
+  "version": "1.0.7",
+  "buildNumber": 8,
   "apkUrl": "https://medconnect-r71.web.app/medconnect.apk.bin",
-  "notes": "Agora você também pode editar seu e-mail no Perfil."
+  "notes": "Corrigido: mensagens duplicadas no chat."
 }
