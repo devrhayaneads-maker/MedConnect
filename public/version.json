@@ -1,6 +1,6 @@
 {
-  "version": "1.0.7",
-  "buildNumber": 8,
+  "version": "1.0.8",
+  "buildNumber": 9,
   "apkUrl": "https://medconnect-r71.web.app/medconnect.apk.bin",
-  "notes": "Corrigido: mensagens duplicadas no chat."
+  "notes": "Respostas automaticas do chat agora variam mais."
 }

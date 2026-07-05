@@ -15,6 +15,12 @@ const List<String> _autoReplyTexts = <String>[
   'Obrigado por entrar em contato. Como podemos ajudar?',
   'Sua mensagem foi registrada. Nossa equipe já te retorna.',
   'Olá! Já estamos verificando sua solicitação.',
+  'Certo, já anotei aqui. Só um instante, por favor.',
+  'Entendido! Vou repassar para o setor responsável.',
+  'Agradecemos o contato. Retornamos em breve com mais detalhes.',
+  'Perfeito, deixa comigo que já te ajudo com isso.',
+  'Sua solicitação está em análise. Aguarde só mais um pouco.',
+  'Oi! Recebemos por aqui, já já um atendente te responde.',
 ];
 
 /// Filtro da tela "Minhas Conversas" (Todas / Não lidas).
@@ -37,6 +43,7 @@ class ConversationsController extends ChangeNotifier {
 
   final ConversationsRepository _repository;
   final Map<String, Conversation> _conversationsById = <String, Conversation>{};
+  final Map<String, String> _lastAutoReplyByConversation = <String, String>{};
   final Map<String, StreamSubscription<QuerySnapshot<Map<String, Object?>>>>
       _messageSubs = <String, StreamSubscription<QuerySnapshot<Map<String, Object?>>>>{};
   StreamSubscription<QuerySnapshot<Map<String, Object?>>>? _conversationsSub;
@@ -187,6 +194,18 @@ class ConversationsController extends ChangeNotifier {
         .then((messageId) => _simulateClinicReply(conversationId, messageId));
   }
 
+  /// Sorteia uma resposta automática, evitando repetir a última usada
+  /// na mesma conversa (simulação mais natural).
+  String _pickAutoReply(String conversationId) {
+    final String? last = _lastAutoReplyByConversation[conversationId];
+    final List<String> options = last == null
+        ? _autoReplyTexts
+        : _autoReplyTexts.where((text) => text != last).toList();
+    final String picked = options[Random().nextInt(options.length)];
+    _lastAutoReplyByConversation[conversationId] = picked;
+    return picked;
+  }
+
   Future<void> _simulateClinicReply(
     String conversationId,
     String patientMessageId,
@@ -206,8 +225,7 @@ class ConversationsController extends ChangeNotifier {
     );
 
     await Future.delayed(const Duration(milliseconds: 700));
-    final String replyText =
-        _autoReplyTexts[Random().nextInt(_autoReplyTexts.length)];
+    final String replyText = _pickAutoReply(conversationId);
     await _repository.addMessage(
       conversationId,
       ChatMessage(
