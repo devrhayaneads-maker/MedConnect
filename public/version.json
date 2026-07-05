@@ -1,6 +1,6 @@
 {
-  "version": "1.0.9",
-  "buildNumber": 10,
+  "version": "1.1.0",
+  "buildNumber": 11,
   "apkUrl": "https://medconnect-r71.web.app/medconnect.apk.bin",
-  "notes": "Contador de nao lidas agora bate com as mensagens de verdade."
+  "notes": "Atencao: o app mudou de identificador interno. Se a instalacao falhar, desinstale a versao antiga antes de instalar esta."
 }

@@ -4,7 +4,7 @@ description: >-
   saúde com agilidade, clareza e confiança. Projeto acadêmico (ADS /
   UNIVIÇOSA) convertido de HTML/CSS/JS para Flutter.
 publish_to: "none"
-version: 1.0.9+10
+version: 1.1.0+11
 
 environment:
   sdk: ">=3.7.0 <4.0.0"
