@@ -1,6 +1,6 @@
 {
-  "version": "1.0.8",
-  "buildNumber": 9,
+  "version": "1.0.9",
+  "buildNumber": 10,
   "apkUrl": "https://medconnect-r71.web.app/medconnect.apk.bin",
-  "notes": "Respostas automaticas do chat agora variam mais."
+  "notes": "Contador de nao lidas agora bate com as mensagens de verdade."
 }
